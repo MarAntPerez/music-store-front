@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function GenresPage() {
+
+    const navigate = useNavigate();
 
     const [genres, setGenres] = useState([]);
 
@@ -31,7 +34,7 @@ function GenresPage() {
 
     return (
 
-        <div style={{ padding: "20px" }}>
+        <div style={styles.container}>
 
             <h2>🎼 Genres</h2>
 
@@ -42,6 +45,17 @@ function GenresPage() {
                     <div
                         key={genre.id}
                         style={styles.card}
+                        onClick={() =>
+                            navigate(`/genre/${genre.id}`)
+                        }
+
+                        onMouseEnter={e =>
+                            e.currentTarget.style.backgroundColor = "#282828"
+                        }
+
+                        onMouseLeave={e =>
+                            e.currentTarget.style.backgroundColor = "#181818"
+                        }
                     >
 
                         <h3>
@@ -64,6 +78,14 @@ export default GenresPage;
 
 const styles = {
 
+    container: {
+        padding: "30px",
+        backgroundColor: "#121212",
+        minHeight: "100vh",
+        color: "white",
+        fontFamily: "Arial"
+    },
+
     grid: {
         display: "grid",
         gridTemplateColumns:
@@ -75,7 +97,8 @@ const styles = {
         backgroundColor: "#181818",
         borderRadius: "12px",
         padding: "15px",
-        color: "white"
+        color: "white",
+        cursor: "pointer"
     }
 
 };

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function GlobalSearch() {
 
+    const navigate = useNavigate();
     const [query, setQuery] = useState("");
     const [albums, setAlbums] = useState([]);
 
@@ -62,6 +64,7 @@ function GlobalSearch() {
                     <div
                         key={album.id}
                         style={styles.card}
+                        onClick={() => navigate(`/albums/${album.id}`)}
                     >
 
                         <img

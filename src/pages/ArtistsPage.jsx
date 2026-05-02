@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ArtistsPage() {
+
+    const navigate = useNavigate();
 
     const [artists, setArtists] = useState([]);
 
@@ -31,7 +34,7 @@ function ArtistsPage() {
 
     return (
 
-        <div style={{ padding: "20px" }}>
+        <div style={styles.container}>
 
             <h2>🎤 Artists</h2>
 
@@ -42,6 +45,9 @@ function ArtistsPage() {
                     <div
                         key={artist.id}
                         style={styles.card}
+                        onClick={() =>
+                            navigate(`/artist/${artist.id}`)
+                        }
                     >
 
                         <h3>
@@ -64,6 +70,14 @@ export default ArtistsPage;
 
 const styles = {
 
+    container: {
+        padding: "30px",
+        backgroundColor: "#121212",
+        minHeight: "100vh",
+        color: "white",
+        fontFamily: "Arial"
+    },
+
     grid: {
         display: "grid",
         gridTemplateColumns:
@@ -74,8 +88,10 @@ const styles = {
     card: {
         backgroundColor: "#181818",
         borderRadius: "12px",
-        padding: "15px",
-        color: "white"
+        padding: "20px",
+        color: "white",
+        cursor: "pointer",
+        transition: "0.2s"
     }
 
 };

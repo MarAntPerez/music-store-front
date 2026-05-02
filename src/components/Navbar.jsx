@@ -19,20 +19,24 @@ function Navbar() {
                 </Link>
 
                 <Link to="/artists" style={styles.link}>
-                    Artists
+                    Artistas
                 </Link>
 
                 <Link to="/genres" style={styles.link}>
-                    Genres
+                    Generos
                 </Link>
 
                 <Link to="/formats" style={styles.link}>
-                    Formats
+                    Formatos
                 </Link>
 
                 <Link to="/years" style={styles.link}>
-                    Years
+                    Años
                 </Link>
+
+                <Link to="/availability" style={styles.link}>Disponibilidad</Link>
+                <Link to="/inventory" style={styles.link}>Inventario</Link>
+                <Link to="/top-artists" style={styles.link}>Artistas</Link>
 
             </div>
 

@@ -1,0 +1,263 @@
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+function AlbumDetailPage() {
+
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const [album, setAlbum] = useState(null);
+    const [songs, setSongs] = useState([]);
+
+    useEffect(() => {
+
+        fetchAlbum();
+        fetchSongs();
+
+    }, []);
+
+    const fetchAlbum = async () => {
+
+        try {
+
+            const response =
+                await axios.get(
+                    `http://localhost:8080/albums/${id}`
+                );
+
+            setAlbum(response.data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
+    const fetchSongs = async () => {
+
+        try {
+
+            const response =
+                await axios.get(
+                    `http://localhost:8080/songs/album/${id}`
+                );
+
+            setSongs(response.data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
+    // 🎵 calcular duración total
+    const totalDuration = songs.reduce((total, song) => {
+
+        if (!song.duration) return total;
+
+        const [min, sec] =
+            song.duration.split(":").map(Number);
+
+        return total + (min * 60 + sec);
+
+    }, 0);
+
+    const minutes =
+        Math.floor(totalDuration / 60);
+
+    const seconds =
+        totalDuration % 60;
+
+    if (!album) return <p>Loading...</p>;
+
+    return (
+
+        <div style={styles.container}>
+
+            {/* Botón volver */}
+            <button
+                style={styles.backButton}
+                onClick={() => navigate(-1)}
+            >
+                ⬅ Back
+            </button>
+
+            {/* Cabecera */}
+            <div style={styles.header}>
+
+                <img
+                    src={
+                        album.imageUrl
+                            ? `http://localhost:8080/images/${album.imageUrl}`
+                            : "https://via.placeholder.com/300"
+                    }
+                    alt={album.albumName}
+                    style={styles.cover}
+                />
+
+                <div>
+
+                    <h1>
+                        {album.albumName}
+                    </h1>
+
+                    <h2>
+                        🎤 {album.artistName}
+                    </h2>
+
+                    <p>
+                        📅 {album.yearRelease}
+                    </p>
+
+                    <p>
+                        ⏱ Total:
+                        {" "}
+                        {minutes}:{seconds
+                            .toString()
+                            .padStart(2, "0")}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {/* Lista canciones */}
+
+            <div style={styles.songList}>
+
+                {songs.map(song => (
+
+                    <div
+                        key={song.id}
+                        style={styles.song}
+                    >
+
+                        <span>
+
+                            {song.trackNumber}.
+                            {" "}
+                            {song.songName}
+
+                        </span>
+
+                        <span>
+                            {song.duration}
+                        </span>
+
+                    </div>
+
+                ))}
+
+            </div>
+
+            <div style={styles.buttonContainer}>
+
+                <button
+                    style={styles.editButton}
+                    onClick={() =>
+                        navigate(`/albums/edit/${album.id}`)
+                    }
+                >
+                    ✏️ Edit Album
+                </button>
+
+                <button
+                    style={styles.songsButton}
+                    onClick={() =>
+                        navigate(`/albums/${album.id}/songs`)
+                    }
+                >
+                    🎵 Manage Songs
+                </button>
+
+            </div>
+
+        </div>
+
+    );
+
+}
+
+export default AlbumDetailPage;
+
+const styles = {
+
+    container: {
+        padding: "30px",
+        color: "white",
+        backgroundColor: "#121212",
+        minHeight: "100vh"
+    },
+
+    backButton: {
+        marginBottom: "20px",
+        padding: "10px 15px",
+        cursor: "pointer",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "8px",
+        color: "white"
+    },
+
+    header: {
+        display: "flex",
+        gap: "25px",
+        alignItems: "center"
+    },
+
+    cover: {
+        width: "250px",
+        height: "250px",
+        objectFit: "cover",
+        borderRadius: "12px",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.5)"
+    },
+
+    songList: {
+        marginTop: "30px"
+    },
+
+    song: {
+        display: "flex",
+        justifyContent: "space-between",
+        padding: "12px",
+        borderBottom: "1px solid #333",
+        cursor: "pointer",
+        transition: "0.2s"
+    },
+
+    buttonContainer: {
+        display: "flex",
+        justifyContent: "center",
+        gap: "15px",
+        marginTop: "20px"
+    },
+
+    editButton: {
+        padding: "10px 18px",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "8px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        transition: "0.2s"
+    },
+
+    songsButton: {
+        padding: "10px 18px",
+        backgroundColor: "#535353",
+        border: "none",
+        borderRadius: "8px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        transition: "0.2s"
+    }
+
+};

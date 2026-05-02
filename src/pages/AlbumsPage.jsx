@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AlbumsPage() {
+
+    const navigate = useNavigate();
 
     const [albums, setAlbums] = useState([]);
 
@@ -31,7 +34,7 @@ function AlbumsPage() {
 
     return (
 
-        <div style={{ padding: "20px" }}>
+        <div style={styles.container}>
 
             <h2>🎵 Albums</h2>
 
@@ -42,6 +45,7 @@ function AlbumsPage() {
                     <div
                         key={album.id}
                         style={styles.card}
+                        onClick={() => navigate(`/albums/${album.id}`)}
                     >
 
                         <img
@@ -80,6 +84,14 @@ export default AlbumsPage;
 
 const styles = {
 
+    container: {
+        padding: "30px",
+        backgroundColor: "#121212",
+        minHeight: "100vh",
+        color: "white",
+        fontFamily: "Arial"
+    },
+
     grid: {
         display: "grid",
         gridTemplateColumns:
@@ -91,7 +103,8 @@ const styles = {
         backgroundColor: "#181818",
         borderRadius: "14px",
         padding: "15px",
-        color: "white"
+        color: "white",
+        cursor: "pointer"
     },
 
     image: {
