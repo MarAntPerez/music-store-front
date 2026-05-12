@@ -46,7 +46,7 @@ function YearAlbumsPage() {
             </button>
 
             <h2 style={styles.title}>
-                📅 Albums from {year}
+                Albunes de {year}
             </h2>
 
             <div style={styles.line}></div>

@@ -36,7 +36,7 @@ function FormatsPage() {
 
         <div style={styles.container}>
 
-            <h2>💿 Formats</h2>
+            <h2>Formatos</h2>
 
             <div style={styles.grid}>
 

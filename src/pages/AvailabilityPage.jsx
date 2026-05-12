@@ -27,7 +27,7 @@ function AvailabilityPage() {
 
         <div style={styles.container}>
 
-            <h2 style={styles.title}>🎧 Buscar disponibilidad</h2>
+            <h2 style={styles.title}>Buscar disponibilidad</h2>
 
             <div style={styles.filters}>
 

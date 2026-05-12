@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../context/CartContext";
 
 function AlbumDetailPage() {
 
@@ -9,6 +10,8 @@ function AlbumDetailPage() {
 
     const [album, setAlbum] = useState(null);
     const [songs, setSongs] = useState([]);
+
+    const { addToCart } = useCart();
 
     useEffect(() => {
 
@@ -55,7 +58,18 @@ function AlbumDetailPage() {
 
     };
 
-    // 🎵 calcular duración total
+    const handleAddToCart = async () => {
+        try {
+            await axios.post(`http://localhost:8080/inventory/sell/${album.id}`);
+
+            addToCart(album);
+
+            alert("Album agregado al carrito");
+        } catch (error) {
+            alert("Album no disponible");
+        }
+    };
+
     const totalDuration = songs.reduce((total, song) => {
 
         if (!song.duration) return total;
@@ -175,6 +189,13 @@ function AlbumDetailPage() {
                     🎵 Manage Songs
                 </button>
 
+                <button
+                    style={styles.cartButton}
+                    onClick={handleAddToCart}
+                >
+                    🛒 Añadir al carrito
+                </button>
+
             </div>
 
         </div>
@@ -258,6 +279,16 @@ const styles = {
         fontWeight: "bold",
         cursor: "pointer",
         transition: "0.2s"
-    }
+    },
+
+    cartButton: {
+        padding: "10px 18px",
+        backgroundColor: "#ff9800",
+        border: "none",
+        borderRadius: "8px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer"
+    },
 
 };

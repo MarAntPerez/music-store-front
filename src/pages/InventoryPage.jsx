@@ -28,7 +28,7 @@ function InventoryPage() {
 
         <div style={styles.container}>
 
-            <h2 style={styles.title}>💿 Inventario por formato</h2>
+            <h2 style={styles.title}>Inventario por formato</h2>
 
             <div style={styles.grid}>
 

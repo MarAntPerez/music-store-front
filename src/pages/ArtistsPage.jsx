@@ -36,7 +36,18 @@ function ArtistsPage() {
 
         <div style={styles.container}>
 
-            <h2>🎤 Artists</h2>
+            <div style={styles.header}>
+
+                <h2>Artistas</h2>
+
+                <button
+                    onClick={() =>
+                        navigate(`/top-artists`)
+                    }
+                    style={styles.cartButton}
+                >Destacados</button>
+
+            </div>
 
             <div style={styles.grid}>
 
@@ -92,6 +103,23 @@ const styles = {
         color: "white",
         cursor: "pointer",
         transition: "0.2s"
-    }
+    },
+
+    cartButton: {
+        padding: "10px 18px",
+        backgroundColor: "#ff9800",
+        border: "none",
+        borderRadius: "8px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer"
+    },
+
+    header: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "25px"
+    },
 
 };

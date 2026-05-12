@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function TopArtistsPage() {
 
     const [artists, setArtists] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchArtists();
@@ -28,7 +31,14 @@ function TopArtistsPage() {
 
         <div style={styles.container}>
 
-            <h2 style={styles.title}>🎤 Artistas destacados</h2>
+            <button
+                style={styles.backButton}
+                onClick={() => navigate(-1)}
+            >
+                ⬅ Back
+            </button>
+
+            <h2 style={styles.title}>Artistas destacados</h2>
 
             <div style={styles.grid}>
 
@@ -53,16 +63,19 @@ function TopArtistsPage() {
 export default TopArtistsPage;
 
 const styles = {
+
     container: {
         padding: "30px",
         backgroundColor: "#121212",
         minHeight: "100vh",
         color: "white"
     },
+
     title: {
         textAlign: "center",
         marginBottom: "20px"
     },
+
     grid: {
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
@@ -73,5 +86,15 @@ const styles = {
         padding: "15px",
         borderRadius: "12px",
         textAlign: "center"
-    }
+    },
+
+    backButton: {
+        marginBottom: "20px",
+        padding: "10px 15px",
+        cursor: "pointer",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "8px",
+        color: "white"
+    },
 };

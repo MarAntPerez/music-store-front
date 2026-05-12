@@ -14,29 +14,21 @@ function Navbar() {
 
             <div style={styles.links}>
 
-                <Link to="/albums" style={styles.link}>
-                    Albums
-                </Link>
+                <Link to="/albums" style={styles.link}>Albumnes</Link>
 
-                <Link to="/artists" style={styles.link}>
-                    Artistas
-                </Link>
+                <Link to="/artists" style={styles.link}>Artistas</Link>
 
-                <Link to="/genres" style={styles.link}>
-                    Generos
-                </Link>
+                <Link to="/genres" style={styles.link}>Generos</Link>
 
-                <Link to="/formats" style={styles.link}>
-                    Formatos
-                </Link>
+                <Link to="/formats" style={styles.link}>Formatos</Link>
 
-                <Link to="/years" style={styles.link}>
-                    Años
-                </Link>
+                <Link to="/years" style={styles.link}>Años</Link>
 
                 <Link to="/availability" style={styles.link}>Disponibilidad</Link>
+
                 <Link to="/inventory" style={styles.link}>Inventario</Link>
-                <Link to="/top-artists" style={styles.link}>Artistas</Link>
+
+                <Link to="/cart" style={styles.link}>Carrito</Link>
 
             </div>
 

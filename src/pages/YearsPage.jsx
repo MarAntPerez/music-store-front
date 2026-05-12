@@ -36,7 +36,7 @@ function YearsPage() {
 
         <div style={styles.container}>
 
-            <h2>📅 Years</h2>
+            <h2>Años</h2>
 
             <div style={styles.grid}>
 

@@ -24,6 +24,7 @@ import ManageSongsPage from './pages/ManageSongsPage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import InventoryPage from './pages/InventoryPage';
 import TopArtistsPage from './pages/TopArtistsPage';
+import CartPage from './pages/CartPage';
 
 function App() {
 
@@ -59,19 +60,21 @@ function App() {
 
                 <Route path='/genre/:id' element={<GenreAlbumsPage />} />
 
-                <Route path='/formats/:id' element={<FormatAlbumsPage />}/>
+                <Route path='/formats/:id' element={<FormatAlbumsPage />} />
 
-                <Route path='/years/:year' element={<YearAlbumsPage />}/>
+                <Route path='/years/:year' element={<YearAlbumsPage />} />
 
-                <Route path='/albums/edit/:id' element={<EditAlbumPage />}/>
+                <Route path='/albums/edit/:id' element={<EditAlbumPage />} />
 
-                <Route path='/albums/:id/songs' element={<ManageSongsPage />}/>
+                <Route path='/albums/:id/songs' element={<ManageSongsPage />} />
 
                 <Route path="/availability" element={<AvailabilityPage />} />
 
                 <Route path="/inventory" element={<InventoryPage />} />
 
                 <Route path="/top-artists" element={<TopArtistsPage />} />
+
+                <Route path="/cart" element={<CartPage />} />
 
             </Routes>
 

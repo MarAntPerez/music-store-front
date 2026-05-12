@@ -36,7 +36,7 @@ function GenresPage() {
 
         <div style={styles.container}>
 
-            <h2>🎼 Genres</h2>
+            <h2>Generos</h2>
 
             <div style={styles.grid}>
 

@@ -36,7 +36,7 @@ function AlbumsPage() {
 
         <div style={styles.container}>
 
-            <h2>🎵 Albums</h2>
+            <h2>Albunes</h2>
 
             <div style={styles.grid}>
 
