@@ -14,7 +14,7 @@ function Navbar() {
 
             <div style={styles.links}>
 
-                <Link to="/albums" style={styles.link}>Albumnes</Link>
+                <Link to="/albums" style={styles.link}>Álbumes</Link>
 
                 <Link to="/artists" style={styles.link}>Artistas</Link>
 

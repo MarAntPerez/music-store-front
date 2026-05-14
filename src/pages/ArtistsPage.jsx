@@ -36,16 +36,24 @@ function ArtistsPage() {
 
         <div style={styles.container}>
 
+
             <div style={styles.header}>
 
-                <h2>Artistas</h2>
+                <h1 style={styles.title}>
+                    Artistas
+                </h1>
 
-                <button
-                    onClick={() =>
-                        navigate(`/top-artists`)
-                    }
-                    style={styles.cartButton}
-                >Destacados</button>
+                <div style={styles.buttonGroup}>
+
+                    <button style={styles.featuredButton}>
+                        Destacados
+                    </button>
+
+                    <button style={styles.addButton}>
+                        ➕ Agregar Artista
+                    </button>
+
+                </div>
 
             </div>
 
@@ -119,7 +127,34 @@ const styles = {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: "25px"
+        marginBottom: "30px"
+    },
+
+    buttonGroup: {
+        display: "flex",
+        gap: "15px"
+    },
+
+    featuredButton: {
+        padding: "10px 18px",
+        backgroundColor: "#ff9800",
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        fontSize: "15px"
+    },
+
+    addButton: {
+        padding: "10px 18px",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        fontSize: "15px"
     },
 
 };

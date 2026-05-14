@@ -26,6 +26,9 @@ import InventoryPage from './pages/InventoryPage';
 import TopArtistsPage from './pages/TopArtistsPage';
 import CartPage from './pages/CartPage';
 import AddAlbumPage from './pages/AddAlbumPage';
+import AddArtistPage from './pages/AddArtistPage';
+import AddGenrePage from './pages/AddGenrePage';
+import AddFormatPage from './pages/AddFormatPage';
 
 function App() {
 
@@ -37,15 +40,9 @@ function App() {
 
             <Routes>
 
-                <Route
-                    path="/"
-                    element={<GlobalSearch />}
-                />
+                <Route path="/" element={<GlobalSearch />} />
 
-                <Route
-                    path="/albums"
-                    element={<AlbumsPage />}
-                />
+                <Route path="/albums" element={<AlbumsPage />} />
 
                 <Route path="/artists" element={<ArtistsPage />} />
 
@@ -78,6 +75,12 @@ function App() {
                 <Route path="/cart" element={<CartPage />} />
 
                 <Route path='/albums/new' element={<AddAlbumPage />}></Route>
+
+                <Route path='/artists/new' element={<AddArtistPage />}></Route>
+
+                <Route path='/genres/new' element={<AddGenrePage />}></Route>
+
+                <Route path='/formats/new' element={<AddFormatPage />}></Route>
 
             </Routes>
 

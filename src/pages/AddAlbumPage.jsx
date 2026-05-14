@@ -127,7 +127,7 @@ function AddAlbumPage() {
 
                 if (!/^\d{4}$/.test(newYear)) {
 
-                    alert("Year must contain exactly 4 numbers");
+                    alert("El año debe contener exactamente 4 números");
 
                     return;
 

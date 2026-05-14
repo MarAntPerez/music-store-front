@@ -36,7 +36,18 @@ function FormatsPage() {
 
         <div style={styles.container}>
 
-            <h2>Formatos</h2>
+            <div style={styles.header}>
+
+                <h2>Formatos</h2>
+
+                <button
+                    style={styles.addButton}
+                    onClick={() => navigate("/formats/new")}
+                >
+                    ➕ Agregar Formato
+                </button>
+
+            </div>
 
             <div style={styles.grid}>
 
@@ -100,6 +111,24 @@ const styles = {
         padding: "15px",
         color: "white",
         cursor: "pointer"
-    }
+    },
+
+    header: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "25px"
+    },
+
+    addButton: {
+        backgroundColor: "#1db954",
+        border: "none",
+        padding: "10px 16px",
+        borderRadius: "8px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        transition: "0.2s"
+    },
 
 };
