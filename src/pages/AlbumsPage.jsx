@@ -36,7 +36,18 @@ function AlbumsPage() {
 
         <div style={styles.container}>
 
-            <h2>Albunes</h2>
+            <div style={styles.header}>
+
+                <h2>Álbumes</h2>
+
+                <button
+                    style={styles.addButton}
+                    onClick={() => navigate("/albums/new")}
+                >
+                    ➕ Agregar Álbum
+                </button>
+
+            </div>
 
             <div style={styles.grid}>
 
@@ -112,6 +123,24 @@ const styles = {
         height: "200px",
         objectFit: "cover",
         borderRadius: "10px"
-    }
+    },
+
+    header: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "25px"
+    },
+
+    addButton: {
+        padding: "10px 18px",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "8px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        transition: "0.2s"
+    },
 
 };

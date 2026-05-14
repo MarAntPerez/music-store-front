@@ -35,7 +35,7 @@ function TopArtistsPage() {
                 style={styles.backButton}
                 onClick={() => navigate(-1)}
             >
-                ⬅ Back
+                ⬅ Volver
             </button>
 
             <h2 style={styles.title}>Artistas destacados</h2>

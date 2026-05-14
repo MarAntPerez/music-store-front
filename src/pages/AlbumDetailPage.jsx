@@ -66,7 +66,7 @@ function AlbumDetailPage() {
 
             alert("Album agregado al carrito");
         } catch (error) {
-            alert("Album no disponible");
+            alert("Álbum no disponible");
         }
     };
 
@@ -87,18 +87,17 @@ function AlbumDetailPage() {
     const seconds =
         totalDuration % 60;
 
-    if (!album) return <p>Loading...</p>;
+    if (!album) return <p>Conectando...</p>;
 
     return (
 
         <div style={styles.container}>
 
-            {/* Botón volver */}
             <button
                 style={styles.backButton}
                 onClick={() => navigate(-1)}
             >
-                ⬅ Back
+                ⬅ Volver
             </button>
 
             {/* Cabecera */}
@@ -177,7 +176,7 @@ function AlbumDetailPage() {
                         navigate(`/albums/edit/${album.id}`)
                     }
                 >
-                    ✏️ Edit Album
+                    ✏️ Editar Álbum
                 </button>
 
                 <button
@@ -186,7 +185,7 @@ function AlbumDetailPage() {
                         navigate(`/albums/${album.id}/songs`)
                     }
                 >
-                    🎵 Manage Songs
+                    🎵 Administrar Canciones
                 </button>
 
                 <button

@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ManageSongsPage() {
+
+    const navigate = useNavigate();
 
     const { id } = useParams();
 
     const [songs, setSongs] = useState([]);
-    const [newSong, setNewSong] = useState("");
+
+    const [newSong, setNewSong] = useState({
+        songName: "",
+        duration: ""
+    });
 
     useEffect(() => {
 
@@ -21,7 +28,7 @@ function ManageSongsPage() {
 
             const response =
                 await axios.get(
-                    `http://localhost:8080/albums/${id}/songs`
+                    `http://localhost:8080/songs/album/${id}`
                 );
 
             setSongs(response.data);
@@ -39,11 +46,18 @@ function ManageSongsPage() {
         try {
 
             await axios.post(
-                `http://localhost:8080/albums/${id}/songs`,
-                { songName: newSong }
+                "http://localhost:8080/songs",
+                {
+                    albumId: id,
+                    songName: newSong.songName,
+                    duration: newSong.duration
+                }
             );
 
-            setNewSong("");
+            setNewSong({
+                songName: "",
+                duration: ""
+            });
 
             fetchSongs();
 
@@ -77,25 +91,48 @@ function ManageSongsPage() {
 
         <div style={styles.container}>
 
-            <h2>🎵 Manage Songs</h2>
+            <button
+                style={styles.backButton}
+                onClick={() => navigate(-1)}
+            >
+                ⬅ Volver
+            </button>
+
+            <h2>Administrar Canciones</h2>
 
             <div style={styles.inputContainer}>
 
                 <input
                     style={styles.input}
                     type="text"
-                    value={newSong}
+                    placeholder="Nombre de la canción"
+                    value={newSong.songName}
                     onChange={e =>
-                        setNewSong(e.target.value)
+                        setNewSong({
+                            ...newSong,
+                            songName: e.target.value
+                        })
                     }
-                    placeholder="Song Name"
+                />
+
+                <input
+                    style={styles.input}
+                    type="text"
+                    placeholder="Duración (00:00)"
+                    value={newSong.duration}
+                    onChange={e =>
+                        setNewSong({
+                            ...newSong,
+                            duration: e.target.value
+                        })
+                    }
                 />
 
                 <button
                     style={styles.addButton}
                     onClick={addSong}
                 >
-                    ➕ Add Song
+                    ➕ Agregar Canción
                 </button>
 
             </div>
@@ -117,7 +154,7 @@ function ManageSongsPage() {
                                 deleteSong(song.id)
                             }
                         >
-                            ❌ Delete
+                            ❌ Eliminar
                         </button>
 
                     </li>
@@ -188,6 +225,16 @@ const styles = {
         borderRadius: "6px",
         color: "white",
         cursor: "pointer"
-    }
+    },
+
+    backButton: {
+        marginBottom: "20px",
+        padding: "10px 15px",
+        cursor: "pointer",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "8px",
+        color: "white"
+    },
 
 };

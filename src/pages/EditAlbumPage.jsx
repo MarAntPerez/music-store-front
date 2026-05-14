@@ -76,7 +76,7 @@ function EditAlbumPage() {
             <div style={styles.formCard}>
 
                 <h2 style={styles.title}>
-                    ✏️ Edit Album
+                    ✏️ Editar Álbum
                 </h2>
 
                 <form onSubmit={handleSubmit}>
@@ -84,7 +84,7 @@ function EditAlbumPage() {
                     <div style={styles.inputGroup}>
 
                         <label style={styles.label}>
-                            Album Name
+                            Nombre
                         </label>
 
                         <input
@@ -100,7 +100,7 @@ function EditAlbumPage() {
                     <div style={styles.inputGroup}>
 
                         <label style={styles.label}>
-                            Year Release
+                            Año de lanzamiento
                         </label>
 
                         <input
@@ -127,7 +127,7 @@ function EditAlbumPage() {
                                 e.currentTarget.style.backgroundColor = "#1db954"
                             }
                         >
-                            💾 Save
+                            💾 Guardar
                         </button>
 
                         <button
@@ -146,7 +146,7 @@ function EditAlbumPage() {
                                 e.currentTarget.style.backgroundColor = "#535353"
                             }
                         >
-                            ❌ Cancel
+                            ❌ Cancelar
                         </button>
 
                     </div>

@@ -48,7 +48,7 @@ function CartPage() {
 
         } catch (error) {
 
-            alert("No stock available");
+            alert("Stock no disponible");
 
         }
 
@@ -110,11 +110,11 @@ function CartPage() {
 
         <div style={styles.container}>
 
-            <h1>🛒 Shopping Cart</h1>
+            <h1>🛒 Carrito</h1>
 
             {cartItems.length === 0 ? (
 
-                <p>Cart is empty</p>
+                <p>El carrito esta vacío</p>
 
             ) : (
 
@@ -171,7 +171,7 @@ function CartPage() {
                             style={styles.removeButton}
                             onClick={() => handleRemove(item)}
                         >
-                            ❌ Remove
+                            ❌ Quitar
                         </button>
 
                     </div>

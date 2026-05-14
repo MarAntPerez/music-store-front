@@ -42,11 +42,11 @@ function YearAlbumsPage() {
                 style={styles.backButton}
                 onClick={() => navigate(-1)}
             >
-                ⬅ Back
+                ⬅ Volver
             </button>
 
             <h2 style={styles.title}>
-                Albunes de {year}
+                Álbumes de {year}
             </h2>
 
             <div style={styles.line}></div>

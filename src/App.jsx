@@ -25,6 +25,7 @@ import AvailabilityPage from './pages/AvailabilityPage';
 import InventoryPage from './pages/InventoryPage';
 import TopArtistsPage from './pages/TopArtistsPage';
 import CartPage from './pages/CartPage';
+import AddAlbumPage from './pages/AddAlbumPage';
 
 function App() {
 
@@ -75,6 +76,8 @@ function App() {
                 <Route path="/top-artists" element={<TopArtistsPage />} />
 
                 <Route path="/cart" element={<CartPage />} />
+
+                <Route path='/albums/new' element={<AddAlbumPage />}></Route>
 
             </Routes>
 

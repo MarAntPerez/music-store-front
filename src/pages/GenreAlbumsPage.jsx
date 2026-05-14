@@ -27,7 +27,6 @@ function GenreAlbumsPage() {
 
             setAlbums(response.data);
 
-            // 🎧 obtener nombre del género
             if (response.data.length > 0) {
 
                 setGenreName(
@@ -52,7 +51,7 @@ function GenreAlbumsPage() {
                 style={styles.backButton}
                 onClick={() => navigate(-1)}
             >
-                ⬅ Back
+                ⬅ Volver
             </button>
 
             <h2 style={styles.title}>
