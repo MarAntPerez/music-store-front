@@ -70,6 +70,34 @@ function AlbumDetailPage() {
         }
     };
 
+    const handleDeleteAlbum = async () => {
+
+        const confirmDelete = window.confirm(
+            "¿Seguro que deseas eliminar este álbum?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await axios.delete(
+                `http://localhost:8080/albums/${album.id}`
+            );
+
+            alert("Álbum eliminado correctamente");
+
+            navigate("/albums");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("No se pudo eliminar el álbum");
+
+        }
+
+    };
+
     const totalDuration = songs.reduce((total, song) => {
 
         if (!song.duration) return total;
@@ -100,7 +128,6 @@ function AlbumDetailPage() {
                 ⬅ Volver
             </button>
 
-            {/* Cabecera */}
             <div style={styles.header}>
 
                 <img
@@ -139,8 +166,6 @@ function AlbumDetailPage() {
 
             </div>
 
-            {/* Lista canciones */}
-
             <div style={styles.songList}>
 
                 {songs.map(song => (
@@ -177,6 +202,13 @@ function AlbumDetailPage() {
                     }
                 >
                     ✏️ Editar Álbum
+                </button>
+
+                <button
+                    style={styles.deleteButton}
+                    onClick={handleDeleteAlbum}
+                >
+                    🗑 Eliminar Álbum
                 </button>
 
                 <button
@@ -288,6 +320,17 @@ const styles = {
         color: "white",
         fontWeight: "bold",
         cursor: "pointer"
+    },
+
+    deleteButton: {
+        padding: "10px 18px",
+        backgroundColor: "#e53935",
+        border: "none",
+        borderRadius: "8px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        transition: "0.2s"
     },
 
 };
