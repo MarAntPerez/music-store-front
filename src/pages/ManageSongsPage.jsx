@@ -146,16 +146,31 @@ function ManageSongsPage() {
                         style={styles.songItem}
                     >
 
-                        {song.songName}
+                        <span>
+                            {song.songName}
+                        </span>
 
-                        <button
-                            style={styles.deleteButton}
-                            onClick={() =>
-                                deleteSong(song.id)
-                            }
-                        >
-                            ❌ Eliminar
-                        </button>
+                        <div style={styles.actions}>
+
+                            <button
+                                style={styles.editButton}
+                                onClick={() =>
+                                    navigate(`/songs/edit/${song.id}`)
+                                }
+                            >
+                                ✏️ Editar
+                            </button>
+
+                            <button
+                                style={styles.deleteButton}
+                                onClick={() =>
+                                    deleteSong(song.id)
+                                }
+                            >
+                                ❌ Eliminar
+                            </button>
+
+                        </div>
 
                     </li>
 
@@ -235,6 +250,21 @@ const styles = {
         border: "none",
         borderRadius: "8px",
         color: "white"
+    },
+
+    actions: {
+        display: "flex",
+        gap: "10px"
+    },
+
+    editButton: {
+        backgroundColor: "#1db954",
+        border: "none",
+        padding: "6px 10px",
+        borderRadius: "6px",
+        color: "white",
+        cursor: "pointer",
+        fontWeight: "bold"
     },
 
 };

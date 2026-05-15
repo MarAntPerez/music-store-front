@@ -32,6 +32,7 @@ import AddFormatPage from './pages/AddFormatPage';
 import EditArtistPage from './pages/EditArtistPage';
 import EditGenrePage from './pages/EditGenrePage';
 import EditFormatPage from './pages/EditFormatPage';
+import EditSongPage from './pages/EditSongPage';
 
 function App() {
 
@@ -90,6 +91,8 @@ function App() {
                 <Route path='/genres/edit/:id' element={<EditGenrePage />} />
 
                 <Route path='/formats/edit/:id' element={<EditFormatPage />} />
+
+                <Route path='/songs/edit/:id' element={<EditSongPage />} />
 
             </Routes>
 
