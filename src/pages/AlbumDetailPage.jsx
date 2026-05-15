@@ -241,6 +241,7 @@ const styles = {
 
     container: {
         padding: "30px",
+        paddingTop: "110px",
         color: "white",
         backgroundColor: "#121212",
         minHeight: "100vh"

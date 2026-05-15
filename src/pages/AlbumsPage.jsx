@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function AlbumsPage() {
 
     const navigate = useNavigate();
+
+    const [searchParams] = useSearchParams();
+
+    const search =
+        searchParams.get("search") || "";
 
     const [albums, setAlbums] = useState([]);
 
@@ -12,15 +18,32 @@ function AlbumsPage() {
 
         fetchAlbums();
 
-    }, []);
+    }, [search]);
 
     const fetchAlbums = async () => {
 
         try {
 
-            const response = await axios.get(
-                "http://localhost:8080/albums"
-            );
+            let response;
+
+            if (search.trim() !== "") {
+
+                response = await axios.get(
+                    "http://localhost:8080/albums/search",
+                    {
+                        params: {
+                            query: search
+                        }
+                    }
+                );
+
+            } else {
+
+                response = await axios.get(
+                    "http://localhost:8080/albums"
+                );
+
+            }
 
             setAlbums(response.data);
 
@@ -97,6 +120,7 @@ const styles = {
 
     container: {
         padding: "30px",
+        paddingTop: "110px",
         backgroundColor: "#121212",
         minHeight: "100vh",
         color: "white",

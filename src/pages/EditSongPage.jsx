@@ -159,7 +159,8 @@ const styles = {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "30px"
+        padding: "30px",
+        paddingTop: "110px"
     },
 
     card: {

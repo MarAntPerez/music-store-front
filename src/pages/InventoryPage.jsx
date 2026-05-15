@@ -55,6 +55,7 @@ export default InventoryPage;
 const styles = {
     container: {
         padding: "30px",
+        paddingTop: "110px",
         backgroundColor: "#121212",
         minHeight: "100vh",
         color: "white"

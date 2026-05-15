@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-
+import HomePage from './pages/HomePage';
 import AlbumsPage from "./pages/AlbumsPage";
 import GlobalSearch from "./components/GlobalSearch";
 import ArtistsPage from "./pages/ArtistsPage";
@@ -44,7 +44,7 @@ function App() {
 
             <Routes>
 
-                <Route path="/" element={<GlobalSearch />} />
+                <Route path="/" element={<HomePage />} />
 
                 <Route path="/albums" element={<AlbumsPage />} />
 
