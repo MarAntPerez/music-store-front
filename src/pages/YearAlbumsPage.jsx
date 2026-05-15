@@ -34,6 +34,32 @@ function YearAlbumsPage() {
 
     };
 
+    const handleDelete = async () => {
+
+        const confirmDelete = window.confirm(
+            "¿Seguro que deseas eliminar este Año?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await axios.put(
+                `http://localhost:8080/albums/years/${year}`
+            );
+
+            alert("Año eliminado");
+
+            navigate("/years");
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
     return (
 
         <div style={styles.container}>
@@ -50,6 +76,20 @@ function YearAlbumsPage() {
             </h2>
 
             <div style={styles.line}></div>
+
+            <div style={styles.actionsContainer}>
+
+                {Number(year) !== 0 && (
+                    <button
+                        style={styles.deleteButton}
+                        onClick={handleDelete}
+                    >
+                        🗑 Eliminar Año
+                    </button>
+                )}
+
+
+            </div>
 
             <div style={styles.grid}>
 
@@ -164,6 +204,25 @@ const styles = {
         width: "100%",
         borderRadius: "10px",
         marginBottom: "10px"
+    },
+
+    actionsContainer: {
+        display: "flex",
+        justifyContent: "center",
+        gap: "15px",
+        marginBottom: "30px"
+    },
+
+    deleteButton: {
+        padding: "10px 18px",
+        backgroundColor: "#e53935",
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        fontSize: "15px",
+        transition: "0.2s"
     }
 
 };

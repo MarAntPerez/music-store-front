@@ -88,16 +88,18 @@ function ArtistAlbumsPage() {
 
             <div style={styles.actionsContainer}>
 
-                <button
-                    style={styles.editButton}
-                    onClick={() =>
-                        navigate(`/artists/edit/${id}`)
-                    }
-                >
-                    ✏️ Editar Artista
-                </button>
+                {Number(id) !== 0 && (
+                    <button
+                        style={styles.editButton}
+                        onClick={() =>
+                            navigate(`/artists/edit/${id}`)
+                        }
+                    >
+                        ✏️ Editar Artista
+                    </button>
+                )}
 
-                {id !== 0 && (
+                {Number(id) !== 0 && (
                     <button
                         style={styles.deleteButton}
                         onClick={handleDelete}

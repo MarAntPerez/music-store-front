@@ -43,6 +43,32 @@ function FormatAlbumsPage() {
 
     };
 
+    const handleDelete = async () => {
+
+        const confirmDelete = window.confirm(
+            "¿Seguro que deseas eliminar este formato?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await axios.delete(
+                `http://localhost:8080/formats/${id}`
+            );
+
+            alert("Formato eliminado");
+
+            navigate("/formats");
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
     return (
 
         <div style={styles.container}>
@@ -62,20 +88,25 @@ function FormatAlbumsPage() {
 
             <div style={styles.actionsContainer}>
 
-                <button
-                    style={styles.editButton}
-                    onClick={() =>
-                        navigate(`/formats/edit/${id}`)
-                    }
-                >
-                    ✏️ Editar Formato
-                </button>
+                {Number(id) !== 0 && (
+                    <button
+                        style={styles.editButton}
+                        onClick={() =>
+                            navigate(`/formats/edit/${id}`)
+                        }
+                    >
+                        ✏️ Editar Formato
+                    </button>
+                )}
 
-                <button
-                    style={styles.deleteButton}
-                >
-                    🗑 Eliminar Formato
-                </button>
+                {Number(id) !== 0 && (
+                    <button
+                        style={styles.deleteButton}
+                        onClick={handleDelete}
+                    >
+                        🗑 Eliminar Formato
+                    </button>
+                )}
 
             </div>
 

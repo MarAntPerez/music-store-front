@@ -43,6 +43,32 @@ function GenreAlbumsPage() {
 
     };
 
+    const handleDelete = async () => {
+
+        const confirmDelete = window.confirm(
+            "¿Seguro que deseas eliminar este genero?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await axios.delete(
+                `http://localhost:8080/genres/${id}`
+            );
+
+            alert("Genero eliminado");
+
+            navigate("/genres");
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
     return (
 
         <div style={styles.container}>
@@ -62,20 +88,26 @@ function GenreAlbumsPage() {
 
             <div style={styles.actionsContainer}>
 
-                <button
-                    style={styles.editButton}
-                    onClick={() =>
-                        navigate(`/genres/edit/${id}`)
-                    }
-                >
-                    ✏️ Editar Genero
-                </button>
 
-                <button
-                    style={styles.deleteButton}
-                >
-                    🗑 Eliminar Genero
-                </button>
+                {Number(id) !== 0 && (
+                    <button
+                        style={styles.editButton}
+                        onClick={() =>
+                            navigate(`/genres/edit/${id}`)
+                        }
+                    >
+                        ✏️ Editar Genero
+                    </button>
+                )}
+
+                {Number(id) !== 0 && (
+                    <button
+                        style={styles.deleteButton}
+                        onClick={handleDelete}
+                    >
+                        🗑 Eliminar Genero
+                    </button>
+                )}
 
             </div>
 
