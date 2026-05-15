@@ -45,11 +45,17 @@ function ArtistsPage() {
 
                 <div style={styles.buttonGroup}>
 
-                    <button style={styles.featuredButton}>
+                    <button 
+                        style={styles.featuredButton}
+                        onClick={() => navigate(`/top-artists`)}
+                    >
                         Destacados
                     </button>
 
-                    <button style={styles.addButton}>
+                    <button
+                        style={styles.addButton}
+                        onClick={() => navigate(`/artists/new`)}
+                    >
                         ➕ Agregar Artista
                     </button>
 
@@ -68,7 +74,6 @@ function ArtistsPage() {
                             navigate(`/artist/${artist.id}`)
                         }
                     >
-
                         <h3>
                             🎤 {artist.artistName}
                         </h3>

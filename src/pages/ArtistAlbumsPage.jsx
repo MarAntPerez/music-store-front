@@ -43,6 +43,32 @@ function ArtistAlbumsPage() {
 
     };
 
+    const handleDelete = async () => {
+
+        const confirmDelete = window.confirm(
+            "¿Seguro que deseas eliminar este artista?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            await axios.delete(
+                `http://localhost:8080/artists/${id}`
+            );
+
+            alert("Artista eliminado");
+
+            navigate("/artists");
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
     return (
 
         <div style={styles.container}>
@@ -59,6 +85,28 @@ function ArtistAlbumsPage() {
             </h2>
 
             <div style={styles.subtitleLine}></div>
+
+            <div style={styles.actionsContainer}>
+
+                <button
+                    style={styles.editButton}
+                    onClick={() =>
+                        navigate(`/artists/edit/${id}`)
+                    }
+                >
+                    ✏️ Editar Artista
+                </button>
+
+                {id !== 0 && (
+                    <button
+                        style={styles.deleteButton}
+                        onClick={handleDelete}
+                    >
+                        🗑 Eliminar
+                    </button>
+                )}
+
+            </div>
 
             <div style={styles.grid}>
 
@@ -169,6 +217,37 @@ const styles = {
         backgroundColor: "#1db954",
         margin: "0 auto 25px auto",
         borderRadius: "5px"
+    },
+
+    actionsContainer: {
+        display: "flex",
+        justifyContent: "center",
+        gap: "15px",
+        marginBottom: "30px"
+    },
+
+    editButton: {
+        padding: "10px 18px",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        fontSize: "15px",
+        transition: "0.2s"
+    },
+
+    deleteButton: {
+        padding: "10px 18px",
+        backgroundColor: "#e53935",
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        fontSize: "15px",
+        transition: "0.2s"
     }
 
 };

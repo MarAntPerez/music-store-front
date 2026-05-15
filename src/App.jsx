@@ -29,6 +29,9 @@ import AddAlbumPage from './pages/AddAlbumPage';
 import AddArtistPage from './pages/AddArtistPage';
 import AddGenrePage from './pages/AddGenrePage';
 import AddFormatPage from './pages/AddFormatPage';
+import EditArtistPage from './pages/EditArtistPage';
+import EditGenrePage from './pages/EditGenrePage';
+import EditFormatPage from './pages/EditFormatPage';
 
 function App() {
 
@@ -74,13 +77,19 @@ function App() {
 
                 <Route path="/cart" element={<CartPage />} />
 
-                <Route path='/albums/new' element={<AddAlbumPage />}></Route>
+                <Route path='/albums/new' element={<AddAlbumPage />} />
 
-                <Route path='/artists/new' element={<AddArtistPage />}></Route>
+                <Route path='/artists/new' element={<AddArtistPage />} />
 
-                <Route path='/genres/new' element={<AddGenrePage />}></Route>
+                <Route path='/genres/new' element={<AddGenrePage />} />
 
-                <Route path='/formats/new' element={<AddFormatPage />}></Route>
+                <Route path='/formats/new' element={<AddFormatPage />} />
+
+                <Route path='/artists/edit/:id' element={<EditArtistPage />} />
+
+                <Route path='/genres/edit/:id' element={<EditGenrePage />} />
+
+                <Route path='/formats/edit/:id' element={<EditFormatPage />} />
 
             </Routes>
 

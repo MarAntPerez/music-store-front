@@ -27,7 +27,6 @@ function FormatAlbumsPage() {
 
             setAlbums(response.data);
 
-            // obtener nombre del formato
             if (response.data.length > 0) {
 
                 setFormatName(
@@ -60,6 +59,25 @@ function FormatAlbumsPage() {
             </h2>
 
             <div style={styles.line}></div>
+
+            <div style={styles.actionsContainer}>
+
+                <button
+                    style={styles.editButton}
+                    onClick={() =>
+                        navigate(`/formats/edit/${id}`)
+                    }
+                >
+                    ✏️ Editar Formato
+                </button>
+
+                <button
+                    style={styles.deleteButton}
+                >
+                    🗑 Eliminar Formato
+                </button>
+
+            </div>
 
             <div style={styles.grid}>
 
@@ -174,6 +192,37 @@ const styles = {
         width: "100%",
         borderRadius: "10px",
         marginBottom: "10px"
+    },
+
+    actionsContainer: {
+        display: "flex",
+        justifyContent: "center",
+        gap: "15px",
+        marginBottom: "30px"
+    },
+
+    editButton: {
+        padding: "10px 18px",
+        backgroundColor: "#1db954",
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        fontSize: "15px",
+        transition: "0.2s"
+    },
+
+    deleteButton: {
+        padding: "10px 18px",
+        backgroundColor: "#e53935",
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        fontWeight: "bold",
+        cursor: "pointer",
+        fontSize: "15px",
+        transition: "0.2s"
     }
 
 };
