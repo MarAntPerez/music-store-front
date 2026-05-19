@@ -1,71 +1,93 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function AlbumsPage() {
+/**
+ * Componente base reutilizable para páginas de categoría (Formato, Género, Año).
+ *
+ * Props:
+ *  - eyebrow:        string   — ej. "EXPLORAR POR FORMATO"
+ *  - categoryLabel:  string   — ej. "Formato", "Género", "Año"
+ *  - categoryName:   string   — valor dinámico, ej. "Vinyl", "Rock", "1994"
+ *  - albums:         array
+ *  - loading:        bool
+ *  - editPath:       string|null  — si null, no muestra botón editar
+ *  - onDelete:       fn|null      — si null, no muestra botón eliminar
+ */
+function CategoryAlbumsPage({
+    eyebrow = "EXPLORAR POR CATEGORÍA",
+    categoryLabel = "Categoría",
+    categoryName = "",
+    albums = [],
+    loading = false,
+    editPath = null,
+    onDelete = null,
+}) {
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const search = searchParams.get("search") || "";
-    const [albums, setAlbums] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [hoveredId, setHoveredId] = useState(null);
-
-    useEffect(() => {
-        fetchAlbums();
-    }, [search]);
-
-    const fetchAlbums = async () => {
-        setLoading(true);
-        try {
-            let response;
-            if (search.trim() !== "") {
-                response = await axios.get("http://localhost:8080/albums/search", {
-                    params: { query: search },
-                });
-            } else {
-                response = await axios.get("http://localhost:8080/albums");
-            }
-            setAlbums(response.data);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const [editHovered, setEditHovered] = useState(false);
+    const [deleteHovered, setDeleteHovered] = useState(false);
 
     return (
         <div style={styles.container}>
 
-            {/* PAGE HEADER */}
+            {/* BACK */}
+            <button
+                style={styles.backButton}
+                onMouseEnter={e => e.currentTarget.style.color = "#C9A84C"}
+                onMouseLeave={e => e.currentTarget.style.color = "rgba(240,237,230,0.4)"}
+                onClick={() => navigate(-1)}
+            >
+                ← Volver
+            </button>
+
+            {/* HEADER */}
             <div style={styles.header}>
-                <div>
-                    <p style={styles.eyebrow}>COLECCIÓN COMPLETA</p>
+                <div style={styles.headerLeft}>
+                    <p style={styles.eyebrow}>{eyebrow}</p>
                     <h1 style={styles.title}>
-                        {search ? (
-                            <>Resultados para <em style={styles.titleItalic}>"{search}"</em></>
-                        ) : (
-                            <>Todos los <em style={styles.titleItalic}>Álbumes</em></>
-                        )}
+                        {categoryName
+                            ? <em style={styles.titleItalic}>{categoryName}</em>
+                            : <em style={styles.titleItalic}>{categoryLabel}</em>
+                        }
                     </h1>
                     {!loading && (
-                        <p style={styles.count}>{albums.length} títulos encontrados</p>
+                        <p style={styles.count}>
+                            {albums.length} álbum{albums.length !== 1 ? "es" : ""} en esta categoría
+                        </p>
                     )}
                 </div>
-                <button
-                    style={styles.addButton}
-                    onMouseEnter={e => {
-                        e.currentTarget.style.background = "#D4B05A";
-                        e.currentTarget.style.transform = "translateY(-1px)";
-                    }}
-                    onMouseLeave={e => {
-                        e.currentTarget.style.background = "#C9A84C";
-                        e.currentTarget.style.transform = "translateY(0)";
-                    }}
-                    onClick={() => navigate("/albums/new")}
-                >
-                    <span style={styles.addIcon}>+</span>
-                    Agregar Álbum
-                </button>
+
+                {/* ACTIONS */}
+                {(editPath || onDelete) && (
+                    <div style={styles.actions}>
+                        {editPath && (
+                            <button
+                                style={{
+                                    ...styles.editButton,
+                                    ...(editHovered ? styles.editButtonHovered : {}),
+                                }}
+                                onMouseEnter={() => setEditHovered(true)}
+                                onMouseLeave={() => setEditHovered(false)}
+                                onClick={() => navigate(editPath)}
+                            >
+                                Editar {categoryLabel}
+                            </button>
+                        )}
+                        {onDelete && (
+                            <button
+                                style={{
+                                    ...styles.deleteButton,
+                                    ...(deleteHovered ? styles.deleteButtonHovered : {}),
+                                }}
+                                onMouseEnter={() => setDeleteHovered(true)}
+                                onMouseLeave={() => setDeleteHovered(false)}
+                                onClick={onDelete}
+                            >
+                                Eliminar
+                            </button>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* DIVIDER */}
@@ -75,18 +97,16 @@ function AlbumsPage() {
             {loading && (
                 <div style={styles.loadingWrap}>
                     <div style={styles.loadingSpinner} />
-                    <p style={styles.loadingText}>Cargando colección...</p>
+                    <p style={styles.loadingText}>Cargando álbumes...</p>
                 </div>
             )}
 
-            {/* EMPTY STATE */}
+            {/* EMPTY */}
             {!loading && albums.length === 0 && (
                 <div style={styles.emptyState}>
-                    <p style={styles.emptyIcon}>💿</p>
-                    <p style={styles.emptyTitle}>No se encontraron álbumes</p>
-                    <p style={styles.emptyDesc}>
-                        {search ? `No hay resultados para "${search}".` : "Agrega el primer álbum a tu colección."}
-                    </p>
+                    <p style={styles.emptyIcon}>♪</p>
+                    <p style={styles.emptyTitle}>Sin álbumes registrados</p>
+                    <p style={styles.emptyDesc}>No hay álbumes en esta categoría.</p>
                 </div>
             )}
 
@@ -104,7 +124,6 @@ function AlbumsPage() {
                             onMouseEnter={() => setHoveredId(album.id)}
                             onMouseLeave={() => setHoveredId(null)}
                         >
-                            {/* COVER ART */}
                             <div style={styles.imageWrap}>
                                 <img
                                     src={
@@ -126,11 +145,9 @@ function AlbumsPage() {
                                 </div>
                             </div>
 
-                            {/* INFO */}
                             <div style={styles.info}>
                                 <h3 style={styles.albumName}>{album.albumName}</h3>
                                 <p style={styles.artistName}>{album.artistName || "Artista desconocido"}</p>
-
                                 <div style={styles.tags}>
                                     {album.genreName && (
                                         <span style={styles.tag}>{album.genreName}</span>
@@ -139,7 +156,6 @@ function AlbumsPage() {
                                         <span style={{ ...styles.tag, ...styles.tagFormat }}>{album.formatType}</span>
                                     )}
                                 </div>
-
                                 <p style={styles.year}>{album.yearRelease}</p>
                             </div>
                         </div>
@@ -151,7 +167,7 @@ function AlbumsPage() {
     );
 }
 
-export default AlbumsPage;
+export default CategoryAlbumsPage;
 
 const styles = {
     container: {
@@ -162,19 +178,31 @@ const styles = {
         fontFamily: "Arial, sans-serif",
     },
 
-    /* HEADER */
+    backButton: {
+        background: "none",
+        border: "none",
+        color: "rgba(240,237,230,0.4)",
+        fontSize: "12px",
+        letterSpacing: "0.1em",
+        cursor: "pointer",
+        padding: "0",
+        marginBottom: "36px",
+        fontFamily: "Arial, sans-serif",
+        transition: "color 0.2s",
+    },
+
     header: {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "flex-end",
         marginBottom: "28px",
     },
+    headerLeft: {},
     eyebrow: {
         fontSize: "11px",
         letterSpacing: "0.3em",
         color: "#C9A84C",
-        marginBottom: "10px",
-        fontFamily: "Arial, sans-serif",
+        margin: "0 0 10px",
     },
     title: {
         fontSize: "42px",
@@ -194,27 +222,42 @@ const styles = {
         margin: 0,
         letterSpacing: "0.05em",
     },
-    addButton: {
+
+    actions: {
         display: "flex",
+        gap: "10px",
         alignItems: "center",
-        gap: "8px",
-        backgroundColor: "#C9A84C",
-        border: "none",
-        borderRadius: "2px",
-        color: "#0D0D0D",
-        fontWeight: "700",
-        fontSize: "12px",
-        letterSpacing: "0.12em",
-        cursor: "pointer",
-        padding: "12px 24px",
-        fontFamily: "Arial, sans-serif",
-        transition: "background 0.2s, transform 0.2s",
-        whiteSpace: "nowrap",
     },
-    addIcon: {
-        fontSize: "16px",
-        lineHeight: 1,
-        fontWeight: "400",
+    editButton: {
+        background: "transparent",
+        border: "1px solid rgba(255,255,255,0.12)",
+        borderRadius: "2px",
+        color: "rgba(240,237,230,0.6)",
+        fontSize: "11px",
+        letterSpacing: "0.1em",
+        padding: "10px 20px",
+        cursor: "pointer",
+        fontFamily: "Arial, sans-serif",
+        transition: "border-color 0.2s, color 0.2s",
+    },
+    editButtonHovered: {
+        borderColor: "#C9A84C",
+        color: "#C9A84C",
+    },
+    deleteButton: {
+        background: "transparent",
+        border: "1px solid rgba(180,50,50,0.3)",
+        borderRadius: "2px",
+        color: "rgba(220,100,100,0.7)",
+        fontSize: "11px",
+        letterSpacing: "0.1em",
+        padding: "10px 20px",
+        cursor: "pointer",
+        fontFamily: "Arial, sans-serif",
+        transition: "background 0.2s",
+    },
+    deleteButtonHovered: {
+        background: "rgba(180,50,50,0.12)",
     },
 
     divider: {
@@ -223,7 +266,6 @@ const styles = {
         marginBottom: "40px",
     },
 
-    /* LOADING */
     loadingWrap: {
         display: "flex",
         flexDirection: "column",
@@ -244,10 +286,8 @@ const styles = {
         fontSize: "13px",
         color: "rgba(240,237,230,0.3)",
         letterSpacing: "0.1em",
-        fontFamily: "Arial, sans-serif",
     },
 
-    /* EMPTY STATE */
     emptyState: {
         textAlign: "center",
         padding: "100px 0",
@@ -255,7 +295,8 @@ const styles = {
     emptyIcon: {
         fontSize: "48px",
         marginBottom: "16px",
-        opacity: 0.3,
+        opacity: 0.2,
+        fontFamily: "Georgia, serif",
     },
     emptyTitle: {
         fontSize: "22px",
@@ -271,14 +312,11 @@ const styles = {
         letterSpacing: "0.05em",
     },
 
-    /* GRID */
     grid: {
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
         gap: "2px",
     },
-
-    /* CARD */
     card: {
         backgroundColor: "#111",
         cursor: "pointer",
@@ -292,7 +330,6 @@ const styles = {
         background: "#161616",
         border: "1px solid rgba(201,168,76,0.2)",
     },
-
     imageWrap: {
         position: "relative",
         overflow: "hidden",
@@ -323,7 +360,6 @@ const styles = {
         fontFamily: "Georgia, serif",
         fontStyle: "italic",
     },
-
     info: {
         padding: "18px 20px 20px",
     },
@@ -374,7 +410,6 @@ const styles = {
     },
 };
 
-/* Inject keyframes */
 if (typeof document !== "undefined") {
     const s = document.createElement("style");
     s.textContent = `@keyframes spin { to { transform: rotate(360deg); } }`;
