@@ -82,7 +82,7 @@ function GlobalSearch() {
                         </h3>
 
                         <p style={styles.artist}>
-                            {album.artistName}
+                            {album.artistName || "Desconocido"}
                         </p>
 
                         <p style={styles.info}>

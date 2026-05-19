@@ -94,7 +94,7 @@ function AlbumsPage() {
 
                         <h3>{album.albumName}</h3>
 
-                        <p>🎤 {album.artistName}</p>
+                        <p>🎤 {album.artistName || "Desconocido"}</p>
 
                         <p>🎼 {album.genreName}</p>
 

@@ -148,7 +148,7 @@ function FormatAlbumsPage() {
                         </h3>
 
                         <p>
-                            🎤 {album.artistName}
+                            🎤 {album.artistName || "Desconocido"}
                         </p>
 
                         <p>

@@ -147,7 +147,7 @@ function AlbumDetailPage() {
                     </h1>
 
                     <h2>
-                        🎤 {album.artistName}
+                        🎤 {album.artistName || "Desconocido"}
                     </h2>
 
                     <p>
